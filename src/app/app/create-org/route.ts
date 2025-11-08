@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { createSupabaseServer } from '@lib/supabase';
+import { createSupabaseRoute } from '@lib/supabase';
 
 export async function POST(req: NextRequest) {
-  const supabase = createSupabaseServer(cookies());
+  const supabase = createSupabaseRoute();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.redirect(new URL('/login', req.url));
 
