@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseFromMiddleware } from '@lib/supabase';
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
+
   if (req.nextUrl.pathname.startsWith('/app')) {
-    const supabase = supabaseFromMiddleware(req, res);
+    const supabase = createMiddlewareClient({ req, res });
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       const url = new URL('/login', req.url);
@@ -12,9 +13,8 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(url);
     }
   }
+
   return res;
 }
 
-export const config = {
-  matcher: ['/app/:path*']
-};
+export const config = { matcher: ['/app/:path*'] };
