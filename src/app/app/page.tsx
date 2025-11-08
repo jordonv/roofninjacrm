@@ -1,8 +1,9 @@
-import { createSupabaseServerComponent } from '@lib/supabaseServer';
+import { cookies } from 'next/headers';
+import { createSupabaseServer } from '@lib/supabase';
 import Link from 'next/link';
 
 export default async function AppHome() {
-  const supabase = createSupabaseServerComponent();
+  const supabase = createSupabaseServer(cookies());
   const { data: { user } } = await supabase.auth.getUser();
 
   const { data: membership } = await supabase

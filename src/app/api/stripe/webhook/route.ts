@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
-export const runtime = 'nodejs'; // ensure Node runtime (required for Stripe SDK)
+export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
   const sig = req.headers.get('stripe-signature')!;

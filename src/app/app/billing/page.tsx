@@ -1,7 +1,8 @@
-import { createSupabaseServerComponent } from '@lib/supabaseServer';
+import { cookies } from 'next/headers';
+import { createSupabaseServer } from '@lib/supabase';
 
 export default async function Billing() {
-  const supabase = createSupabaseServerComponent();
+  const supabase = createSupabaseServer(cookies());
   const { data: { user } } = await supabase.auth.getUser();
   const { data: membership } = await supabase
     .from('memberships')
