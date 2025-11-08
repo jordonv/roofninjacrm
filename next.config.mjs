@@ -8,10 +8,10 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
-  reactStrictMode: true,
-  experimental: {
-    serverActions: { allowedOrigins: ['*'] }
-  },
+  output: 'standalone'
+};
+module.exports = nextConfig;
+
   async headers() {
     return [
       {
